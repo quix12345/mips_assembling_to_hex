@@ -58,7 +58,7 @@ for line in lines:
     if "($" not in line:
         line = line.split("(")[0]
     code_in_hex = convert_code_to_hex(line.strip())
-    print("%s (%s)", line, code_in_hex)
+    print("%s (%s)" % (line, code_in_hex))
     ins_list.append(code_in_hex)
 f.close()
 # print(ins_list)
