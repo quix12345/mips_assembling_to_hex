@@ -6,7 +6,7 @@ Imperial College London
 
 import execjs
 
-js = open("js/instToHex.js", 'r', encoding='UTF-8')
+js = open("./js/instToHex.js", 'r', encoding='UTF-8')
 converter = execjs.compile(js.read())
 
 
@@ -44,7 +44,7 @@ def hex_to_bytes(hex):
 
 
 ins_list = []
-f = open("src/source_code.txt", "r", encoding='utf-8')
+f = open("./src/source_code.txt", "r", encoding='utf-8')
 lines = f.readlines()
 for line in lines:
     line = line.replace("\n", "")
