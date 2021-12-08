@@ -22,14 +22,14 @@ def format_code(code):
 
 
 def convert_code_to_hex(code):
-    result = converter.call('instToHex', format_code(code))
     try:
+        result = converter.call('instToHex', format_code(code))
         if result["status"]:
             return result["hex"]
         else:
             return "[Error]" + result["errMsg"]
     except:
-        return "[Error]" + result["errMsg"]
+        return "[Error]" + "js error!"
 
 
 def hex_to_bytes(hex):
