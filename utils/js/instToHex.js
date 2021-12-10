@@ -333,6 +333,19 @@ function instToHex(input_instruction) {
             rt = inputFields[i];
         } else if (instFields[i] == "offset") {
             imm = inputFields[i];
+            var imm_dec
+            if(imm.substring(0,2)==="0x"||imm.substring(0,2)==="0X"){
+                imm_dec = parseInt(imm)
+            }
+            else{
+                imm_dec = parseInt("0x" + imm)
+            }
+            if (imm_dec % 4 !== 0) {
+                return {"status": false, "errMsg": "Error, check that target is not a multiple of 4"};
+            } else {
+                imm = (imm_dec / 4).toFixed()
+                imm = imm.toString(16)
+            }
         } else if (instFields[i] == "imm") {
             imm = inputFields[i];
         } else if (instFields[i] == "sa") {
@@ -459,3 +472,4 @@ function instToHex(input_instruction) {
 
     return {"status": true, "hex": hexOut, "bin": binaryOut}
 }
+// console.log(instToHex("BEQ $0, $1, 0x8"))
