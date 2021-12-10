@@ -3,10 +3,9 @@ function isDec(dec) {
 }
 
 function covert_to_valid_hex_string(target) {
-    if(target==="-1"){
+    if (target === "-1") {
         return "FFFF"
-    }
-    else if (target.includes("0X")) {
+    } else if (target.includes("0X")) {
         return [true, target.replace("0X", "")];
     } else if (target.includes("0x")) {
         return [true, target.replace("0x", "")];
@@ -369,7 +368,7 @@ function instToHex(input_instruction) {
         shamt_c = "0" + shamt_c;
     }
 
-    if (format == iFormat) {
+    if (format === iFormat) {
         imm = imm.toUpperCase();
         var imm_result = covert_to_valid_hex_string(imm)
         if (imm_result[0]) {
@@ -379,14 +378,14 @@ function instToHex(input_instruction) {
         }
         var k, immTemp = "";
         for (k = 0; k < imm.length; k += 1) {
-            if (hexTable.hasOwnProperty(imm[k]) == false) {
+            if (hexTable.hasOwnProperty(imm[k]) === false) {
                 immTemp = false;
                 break;
             } else {
                 immTemp = immTemp + hexTable[imm[k]];
             }
         }
-        if (immTemp == false) {
+        if (immTemp === false) {
             return {"status": false, "errMsg": "Error, check that immediate is valid hex"};
         } else {
             imm_c = immTemp;
@@ -396,7 +395,7 @@ function instToHex(input_instruction) {
         }
     }
 
-    if (format == jFormat) {
+    if (format === jFormat) {
         target = target.toUpperCase();
         var target_result = covert_to_valid_hex_string(target)
         if (target_result[0]) {
@@ -404,16 +403,23 @@ function instToHex(input_instruction) {
         } else {
             return {"status": false, "errMsg": "Error, check that target is valid hex"};
         }
+        var target_dec = parseInt("0x" + target)
+        if (target_dec % 4 !== 0) {
+            return {"status": false, "errMsg": "Error, check that target is not a multiple of 4"};
+        } else {
+            target = (target_dec / 4).toFixed()
+            target = target.toString(16)
+        }
         var o, targetTemp = "";
         for (o = 0; o < target.length; o += 1) {
-            if (hexTable.hasOwnProperty(target[o]) == false) {
+            if (hexTable.hasOwnProperty(target[o]) === false) {
                 targetTemp = "invalid";
                 break;
             } else {
                 targetTemp = targetTemp + hexTable[target[o]];
             }
         }
-        if (targetTemp == "invalid") {
+        if (targetTemp === "invalid") {
             return {"status": false, "errMsg": "Error, check that target is valid hex"};
         } else {
             target_c = targetTemp;
@@ -453,5 +459,3 @@ function instToHex(input_instruction) {
 
     return {"status": true, "hex": hexOut, "bin": binaryOut}
 }
-
-
